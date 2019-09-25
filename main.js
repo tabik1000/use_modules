@@ -7,6 +7,7 @@ const popupForm = document.forms.popupForm;
 const editForm = document.forms.editForm;
 editForm.elements.name.value = document.querySelector('.user-info__name').textContent;
 editForm.elements.link.value = document.querySelector('.user-info__job').textContent;
+const serverUrl = NODE_ENV === 'development' ? 'http://praktikum.tk/cohort2' : 'https://praktikum.tk/cohort2'
 
 class Card {
   constructor(name, link) {
@@ -182,7 +183,7 @@ popupForm.addEventListener('input', validateForm);
 popupForm.addEventListener('input', validateLink);
 
 const userInfo = {
-  baseUrl: 'http://95.216.175.5/cohort2',
+  baseUrl: serverUrl,
   headers: {
     authorization: 'e6f04cd4-4d82-48d7-8c34-111d7888cce2',
     'Content-Type': 'application/json'

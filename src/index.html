@@ -10,7 +10,7 @@
 <body>
   <div class="root">
     <header class="header root__section">
-      <img src="../images/logo.svg" alt="mesto logo" class="logo">
+      <img src="<%=require('../images/logo.svg')%>" alt="mesto logo" class="logo">
     </header>
     <div class="profile root__section">
       <div class="user-info">
@@ -38,7 +38,7 @@
     </div>
     <div class="popup">
       <div class="popup__content">
-        <img src="../images/close.svg" alt="" class="popup__close">
+        <img src="<%=require('../images/close.svg')%>" alt="" class="popup__close">
         <h3 class="popup__title">Новое место</h3>
         <form class="popup__form" name="popupForm">
             <input id="placename" required minlength="2" maxlength="30" type="text" name="name" class="popup__input popup__input_type_name" placeholder="Название">
@@ -52,7 +52,7 @@
 
     <div class="edit">
       <div class="edit__content">
-        <img src="../images/close.svg" alt="" class="popup__close">
+        <img src="<%=require('../images/close.svg')%>" alt="" class="popup__close">
         <h3 class="edit__title">Редактировать профиль</h3>
         <form class="edit__form" name="editForm">
             <input id="username" type="text" required minlength="2" maxlength="30" name="name" class="edit__input edit__input_type_name" placeholder="Имя">
@@ -66,8 +66,7 @@
 
     <div class="imgpopup">
       <div class="imgpopup__container">
-          <img src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg" alt="" class="imgpopup__image">
-        <img src="../images/close.svg" alt="" class="popup__close">
+        <img src="<%=require('../images/close.svg')%>" alt="" class="popup__close">
       </div>
     </div>
   </div>

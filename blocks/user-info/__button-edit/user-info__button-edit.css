@@ -1,0 +1,22 @@
+.user-info__button-edit {
+  margin-top: 24px;
+  background-color: black;
+  border-width: 1px;
+
+  font-size: 12px;
+  line-height: 14px;
+  color: #fff;
+}
+
+.user-info__button-edit:hover {
+  background-color: #fff;
+  color: #000;
+  cursor: pointer;
+}
+
+.user-info__button-edit:active {
+  background-color: rgb(89, 89, 245);
+  color: #000;
+}
+
+

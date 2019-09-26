@@ -4,8 +4,9 @@
   "description": "1 Собрала проект в webpack:\r - Настроила сборку build и dev.\r - Настройла хеширование CSS и JS-файлов.\r - Создала в корне проекта пустой файл с именем .nojekyll. \r - Заменила IP адрес для запросов к серверу используя env.\r - Настроила автоматическое обновление страницы проекта при сохранении файлов.\r - Настроила вебпак для работы с изображениями и их оптимизации. Для этого установила два плагина:\r   file-loader — этот плагин нужен, чтобы вебпак смог работать с разными файлами, например: изображениями или шрифтами.\r   image-webpack-loader\r - Настроила работу со стилями в зависимости от сборки. В dev-режиме нужен пакет style-loader, а в продакшн-сборке — нет.\r - Добавила в раздел rules файла webpack.config.js настройку для подгрузки шрифтов.\r 2 Разбила код на модули. Связала модули директивами export и import.",
   "main": "main.js",
   "scripts": {
-    "build": "rimraf dist && webpack --mode production",
-    "dev": "webpack-dev-server --mode development --open --watch"
+    "build": "cross-env NODE_ENV=production rimraf dist && webpack --mode production",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --mode development --open --watch",
+    "deploy": "cross-env NODE_ENV=production gh-pages -d dist"
   },
   "repository": {
     "type": "git",

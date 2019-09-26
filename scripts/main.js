@@ -1,3 +1,6 @@
+// import CardList from './cardlist.js';
+import Popup from './popup.js';
+
 const root = document.querySelector('.root');
 const placesList = document.querySelector('.places-list');
 const popup = document.querySelector('.popup');
@@ -73,23 +76,6 @@ class CardList {
   }
 }
 
-class Popup {
-  constructor(container) {
-    this.popupElement = container;
-	  this.popupElement.addEventListener('click', event => {
-      if(event.target.classList.contains('popup__close')) this.close();
-    });
-  }
-
-  open() {
-    this.popupElement.classList.add('popup_is-opened');
-  }
-
-  close() {
-    this.popupElement.classList.remove('popup_is-opened');
-  }
-};
-
 const popupNew = new Popup(popup);
 const popupEditNew = new Popup(edit);
 const popupImage = new Popup(imgPopup);
@@ -117,8 +103,6 @@ function editContent (event) {
   const name = editForm.elements.name.value;
   const job = editForm.elements.link.value;
   if (editForm.elements.name.value.length !== 0 && editForm.elements.link.value.length !== 0) {
-    // api.addUserInfo(name, job);
-  // Надо исправить: данные на странице не сохраняются, обращаться с методом addUserInfo стоит следующим образом:
     api.addUserInfo(name, job)
         .then((user) => {
           document.querySelector('.user-info__name').textContent = user.name;
@@ -127,7 +111,7 @@ function editContent (event) {
           popupEditNew.close();
         })
         .catch((err) => {
-          console.log(err); // выведем ошибку в консоль
+          console.log(err); 
         });
     event.preventDefault();
     popupEditNew.close();
@@ -220,10 +204,6 @@ class Api {
     })
   })
     .then((result) => this.checkResultJson(result))
-    /* Надо исправать: this.getUserInfo() - делает запрос, но при его получении данные на страницу
-    не подставляются. Этот запрос здесь делать вообще не требуется и .then(() => this.getUserInfo()) можно убрать. 
-    При вызове addUserInfo необходимо просто обработать промис как я показал выше */
-   // .then(() => this.getUserInfo())
   }
 }
 
@@ -235,9 +215,8 @@ api.getUserInfo()
     document.querySelector('.user-info__job').textContent = user.about;
     document.querySelector('.user-info__photo').setAttribute('style', `background-image: url(${user.avatar})`);
   })
-  //.catch() //Можно лучше: лучше хотябы выводить ошибку в консоль
     .catch((err) => {
-      console.log(err); // выведем ошибку в консоль
+    console.log(err); 
     });
   
 
@@ -245,25 +224,11 @@ api.getInitialCards()
   .then(result => {
     const newCard = new CardList(document.querySelector('.places-list'), result);
   })
-  // Надо исправить: в конце цепочки блоков then должны быть обработка ошибок,
-  //на тот случай если запрос к серверу завершился неудачей
     .catch((err) => {
-      console.log(err); // выведем ошибку в консоль
+    console.log(err); 
     });
   
   
 
 
 
-/*
-    Класс Api организован хорошо.
-    Отлично, что повторяющийся код вынесен в функцию checkResultJson.
-
-    Но по методу addUserInfo есть замечание - выполнять в нем запрос на получение информации
-    пользователя .then(() => this.getUserInfo()) не нужно. В ответ на отправку данных сервер 
-    возвращает обновленные данные, их и нужно использовать. Как это сделать, я привел в примере выше,
-    в функции editContent.
-    Так же в некоторых местах не хватает обработки ошибок в конце цепочки блоков then.
-
-    Почему то в попапе редактирования профиля кнопка неактивна, даже если ввести корректные данные.
-*/  

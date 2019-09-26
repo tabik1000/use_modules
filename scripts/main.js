@@ -1,8 +1,10 @@
-// import CardList from './cardlist.js';
+import CardList from './cardlist.js';
+import Card from './card.js';
 import Popup from './popup.js';
+import Api from './api.js';
 
 const root = document.querySelector('.root');
-const placesList = document.querySelector('.places-list');
+export const placesList = document.querySelector('.places-list');
 const popup = document.querySelector('.popup');
 const edit = document.querySelector('.edit');
 const imgPopup = document.querySelector('.imgpopup');
@@ -12,69 +14,69 @@ editForm.elements.name.value = document.querySelector('.user-info__name').textCo
 editForm.elements.link.value = document.querySelector('.user-info__job').textContent;
 const serverUrl = NODE_ENV === 'development' ? 'http://praktikum.tk/cohort2' : 'https://praktikum.tk/cohort2'
 
-class Card {
-  constructor(name, link) {
-    this.cardElement = this.createCard(name, link);
-    this.cardElement.addEventListener('click', this.likeCard);
-    this.cardElement.addEventListener('click', this.removeCard);
-  }
+// class Card {
+//   constructor(name, link) {
+//     this.cardElement = this.createCard(name, link);
+//     this.cardElement.addEventListener('click', this.likeCard);
+//     this.cardElement.addEventListener('click', this.removeCard);
+//   }
 
-  createCard(crdName, crdLink) {
-    const cardContainer = document.createElement('div');
-    const cardImage = document.createElement('div');
-    const cardImageDeleteBtn = document.createElement('button');
-    const cardDescription = document.createElement('div');
-    const cardName = document.createElement('h3');
-    const cardLikeBtn = document.createElement('button');
+//   createCard(crdName, crdLink) {
+//     const cardContainer = document.createElement('div');
+//     const cardImage = document.createElement('div');
+//     const cardImageDeleteBtn = document.createElement('button');
+//     const cardDescription = document.createElement('div');
+//     const cardName = document.createElement('h3');
+//     const cardLikeBtn = document.createElement('button');
 
-    cardContainer.classList.add('place-card');
-    cardImage.classList.add('place-card__image');
-    cardImage.style.backgroundImage = `url(${crdLink})`;
-    cardImageDeleteBtn.classList.add('place-card__delete-icon');
-    cardDescription.classList.add('place-card__description');
-    cardName.classList.add('place-card__name');
-    cardName.textContent = crdName;
-    cardLikeBtn.classList.add('place-card__like-icon');
+//     cardContainer.classList.add('place-card');
+//     cardImage.classList.add('place-card__image');
+//     cardImage.style.backgroundImage = `url(${crdLink})`;
+//     cardImageDeleteBtn.classList.add('place-card__delete-icon');
+//     cardDescription.classList.add('place-card__description');
+//     cardName.classList.add('place-card__name');
+//     cardName.textContent = crdName;
+//     cardLikeBtn.classList.add('place-card__like-icon');
 
-    cardContainer.appendChild(cardImage);
-    cardImage.appendChild(cardImageDeleteBtn);
-    cardContainer.appendChild(cardDescription);
-    cardDescription.appendChild(cardName);
-    cardDescription.appendChild(cardLikeBtn);
-    placesList.appendChild(cardContainer);
+//     cardContainer.appendChild(cardImage);
+//     cardImage.appendChild(cardImageDeleteBtn);
+//     cardContainer.appendChild(cardDescription);
+//     cardDescription.appendChild(cardName);
+//     cardDescription.appendChild(cardLikeBtn);
+//     placesList.appendChild(cardContainer);
 
-    return cardContainer;
-  }
+//     return cardContainer;
+//   }
 
-  likeCard(event) {
-    if (event.target.classList.contains('place-card__like-icon')){
-      event.target.classList.toggle('place-card__like-icon_liked');
-    }
-  }
+//   likeCard(event) {
+//     if (event.target.classList.contains('place-card__like-icon')){
+//       event.target.classList.toggle('place-card__like-icon_liked');
+//     }
+//   }
 
-  removeCard(event) {
-    if (event.target.classList.contains('place-card__delete-icon')){
-      event.currentTarget.parentElement.removeChild(event.currentTarget);
-    }
-  }
-}
+//   removeCard(event) {
+//     if (event.target.classList.contains('place-card__delete-icon')){
+//       event.currentTarget.parentElement.removeChild(event.currentTarget);
+//     }
+//   }
+// }
 
-class CardList {
-  constructor(cardsContainer, cardsArr){
-    this.cardsContainer = cardsContainer;
-    this.cardsArr = cardsArr;
-    this.render();
-  }
+// class CardList {
+//   constructor(cardsContainer, cardsArr){
+//     this.cardsContainer = cardsContainer;
+//     this.cardsArr = cardsArr;
+//     this.render();
+//   }
 
-  addCard(crdName, crdLink){
-    const { cardElement } = new Card(crdLink, crdName);
-    this.cardsContainer.appendChild(cardElement);
-  }
+//   addCard(crdName, crdLink){
+//     const { cardElement } = new Card(crdLink, crdName);
+//     this.cardsContainer.appendChild(cardElement);
+//   }
 
-  render () {
-    this.cardsArr.forEach((elem) => {this.addCard(elem.link, elem.name)})
-  }
-}
+//   render () {
+//     this.cardsArr.forEach((elem) => {this.addCard(elem.link, elem.name)})
+//   }
+// }
 
 const popupNew = new Popup(popup);
 const popupEditNew = new Popup(edit);
@@ -174,38 +176,38 @@ const userInfo = {
   }  
 }
 
-class Api {
-  constructor(info) {
-    this.baseUrl = info.baseUrl;
-    this.headers = info.headers;
-  }
+// class Api {
+//   constructor(info) {
+//     this.baseUrl = info.baseUrl;
+//     this.headers = info.headers;
+//   }
 
-  checkResultJson(result) {
-    if(result.ok) {
-      return result.json();
-    }
-    return Promise.reject(result.status);
-  }
+//   checkResultJson(result) {
+//     if(result.ok) {
+//       return result.json();
+//     }
+//     return Promise.reject(result.status);
+//   }
 
-  getUserInfo() {
-    return fetch(`${this.baseUrl}/users/me`, {method: "GET", headers: this.headers})
-    .then((result) => this.checkResultJson(result));
-  }
+//   getUserInfo() {
+//     return fetch(`${this.baseUrl}/users/me`, {method: "GET", headers: this.headers})
+//     .then((result) => this.checkResultJson(result));
+//   }
 
-  getInitialCards() {
-    return fetch(`${this.baseUrl}/cards`, {method: "GET", headers: this.headers})
-    .then((result) => this.checkResultJson(result))
-  }
+//   getInitialCards() {
+//     return fetch(`${this.baseUrl}/cards`, {method: "GET", headers: this.headers})
+//     .then((result) => this.checkResultJson(result))
+//   }
 
-  addUserInfo(editName, editJob) {
-    return fetch(`${this.baseUrl}/users/me`, {method: "PATCH", headers: this.headers, body: JSON.stringify({
-      name: `${editName}`,
-      about: `${editJob}`
-    })
-  })
-    .then((result) => this.checkResultJson(result))
-  }
-}
+//   addUserInfo(editName, editJob) {
+//     return fetch(`${this.baseUrl}/users/me`, {method: "PATCH", headers: this.headers, body: JSON.stringify({
+//       name: `${editName}`,
+//       about: `${editJob}`
+//     })
+//   })
+//     .then((result) => this.checkResultJson(result))
+//   }
+// }
 
 const api = new Api(userInfo);
 

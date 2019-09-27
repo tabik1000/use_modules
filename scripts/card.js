@@ -1,4 +1,5 @@
-import {placesList} from './main.js'
+import {placesList} from './main.js';
+
 export default class Card {
     constructor(name, link) {
         this.cardElement = this.createCard(name, link);
